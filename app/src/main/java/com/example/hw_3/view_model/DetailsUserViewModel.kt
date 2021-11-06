@@ -31,7 +31,7 @@ class DetailsUserViewModel(application: Application) : AndroidViewModel(applicat
         userDao.update(user)
     }
 
-    fun loadChageActivity(id: Int){
+    fun setUserIdInLiveData(id: Int){
         _userId.value = id
     }
 

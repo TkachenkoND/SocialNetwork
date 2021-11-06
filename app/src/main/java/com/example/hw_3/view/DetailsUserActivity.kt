@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
 import com.example.hw_3.view_model.DetailsUserViewModel
 import kotlinx.android.synthetic.main.details_activity.*
+import kotlinx.android.synthetic.main.edit_profile_activity.*
 
 
 class DetailsUserActivity : AppCompatActivity(){
@@ -23,15 +24,16 @@ class DetailsUserActivity : AppCompatActivity(){
 
         vm = ViewModelProvider(this).get(DetailsUserViewModel::class.java)
 
-        initObservers()
-        vm.loadDetailsUser()
+        vm.loadDetailsUser(getUserIdFromUserList())
 
-        vm.loadChageActivity()
+        initUserDetailsObservers()
+
+        initUserIdObservers()
 
 
     }
 
-    private fun initObservers() {
+    private fun initUserDetailsObservers() {
 
         vm.userDetailsLiveData.observe(this, Observer {
 
@@ -51,33 +53,38 @@ class DetailsUserActivity : AppCompatActivity(){
                 .into(detailsImage)
 
             setButtonListener(btnEdit,it.userId)
-            setButtonListener(btnEdit)
+
         })
 
     }
 
-    fun onClickBtnEdit(view: View, id: Int) {
-        view.setOnClickListener {
+    private fun initUserIdObservers(){
+
+        vm.userId.observe(this, Observer {
             val intent = Intent(this, EditUserActivity::class.java)
-            intent.putExtra("user_name", id)
+            intent.putExtra("id", it)
             startActivity(intent)
-        }
+        })
     }
 
-    fun onClickBtnBack(view: View) {
-        view.setOnClickListener {
-            val intent = Intent(this, UserListActivity::class.java)
-            startActivity(intent)
-        }
-    }
-
-
-
-    fun setButtonListener(view: View?, id: Int = 0) {
+    private fun setButtonListener(view: View?, id: Int = 0 ) {
         view!!.setOnClickListener{
-            vm.loadChageActivity(id)
+            when(view){
+                btnEdit -> vm.setUserIdInLiveData(id)
+                btnBack -> onClickBtnBack()
+            }
+
         }
     }
+
+    private fun getUserIdFromUserList() = intent.extras?.getInt("id")!!.toInt()
+
+    private fun onClickBtnBack() {
+
+        val intent = Intent(this, UserListActivity::class.java)
+        startActivity(intent)
+    }
+
 
 
 }
