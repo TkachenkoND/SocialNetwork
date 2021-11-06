@@ -11,7 +11,6 @@ import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
 import com.example.hw_3.view_model.DetailsUserViewModel
 import kotlinx.android.synthetic.main.details_activity.*
-import kotlinx.android.synthetic.main.edit_profile_activity.*
 
 
 class DetailsUserActivity : AppCompatActivity(){
@@ -28,8 +27,7 @@ class DetailsUserActivity : AppCompatActivity(){
 
         initUserDetailsObservers()
 
-        initUserIdObservers()
-
+        setUserId(getUserIdFromUserList())
 
     }
 
@@ -52,26 +50,26 @@ class DetailsUserActivity : AppCompatActivity(){
                 .error(R.drawable.ic_launcher_foreground)
                 .into(detailsImage)
 
-            setButtonListener(btnEdit,it.userId)
+            setButtonListener(btnEdit)
 
         })
 
     }
 
-    private fun initUserIdObservers(){
-
-        vm.userId.observe(this, Observer {
-            val intent = Intent(this, EditUserActivity::class.java)
-            intent.putExtra("id", it)
-            startActivity(intent)
-        })
-    }
-
-    private fun setButtonListener(view: View?, id: Int = 0 ) {
+    private fun setButtonListener(view: View?) {
         view!!.setOnClickListener{
             when(view){
-                btnEdit -> vm.setUserIdInLiveData(id)
-                btnBack -> onClickBtnBack()
+                btnEdit -> {
+
+                    val intent = Intent(this, EditUserActivity::class.java)
+                    startActivity(intent)
+                }
+
+                btnBack -> {
+
+                    val intent = Intent(this, UserListActivity::class.java)
+                    startActivity(intent)
+                }
             }
 
         }
@@ -79,10 +77,8 @@ class DetailsUserActivity : AppCompatActivity(){
 
     private fun getUserIdFromUserList() = intent.extras?.getInt("id")!!.toInt()
 
-    private fun onClickBtnBack() {
-
-        val intent = Intent(this, UserListActivity::class.java)
-        startActivity(intent)
+    private fun setUserId(id: Int){
+        vm.setUserIdInLiveData(id)
     }
 
 

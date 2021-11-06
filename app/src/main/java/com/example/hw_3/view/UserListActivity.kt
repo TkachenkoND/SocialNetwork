@@ -7,7 +7,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.hw_3.databinding.UserListActivityBinding
-import com.example.hw_3.model.User
 import com.example.hw_3.view_model.UserActionListener
 import com.example.hw_3.view_model.UserAdapter
 import com.example.hw_3.view_model.UserViewModel
