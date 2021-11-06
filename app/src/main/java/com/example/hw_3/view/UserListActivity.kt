@@ -19,10 +19,12 @@ class UserListActivity : AppCompatActivity() {
     lateinit var binding: UserListActivityBinding
 
     private val adapter = UserAdapter(object : UserActionListener {
-        override fun goToDetails(user: User) {
-            val intent = Intent(this@UserListActivity, DetailsUserActivity::class.java)
-            intent.putExtra("id", user.userId)
-            startActivity(intent)
+        override fun goToDetails() {
+            vm.userId.observe(this@UserListActivity, Observer {
+                val intent = Intent(this@UserListActivity, DetailsUserActivity::class.java)
+                intent.putExtra("id", it)
+                startActivity(intent)
+            })
         }
 
     })

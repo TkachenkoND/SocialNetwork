@@ -60,14 +60,12 @@ class UserAdapter(
     }
 
     override fun onClick(v: View) {
-        val user: User = v.tag as User
-
-        actionListener.goToDetails(user)
+        actionListener.goToDetails()
 
     }
 
 }
 
 interface UserActionListener {
-    fun goToDetails(user: User)
+    fun goToDetails()
 }

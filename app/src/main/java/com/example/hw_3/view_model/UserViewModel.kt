@@ -16,6 +16,9 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
     private val _userListLiveData = MutableLiveData<List<User>>()
     val userListLiveData: LiveData<List<User>> = _userListLiveData
 
+    private val _userId = MutableLiveData<Int>()
+    val userId: LiveData<Int> = _userId
+
     val dataSource = UserDataBase.getDatabase(application).userDataBaseDao()
 
     fun insertUserToDB() {
@@ -27,6 +30,10 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
 
     fun loadListUsers() {
         _userListLiveData.value = dataSource.getAllUsers()
+    }
+
+    fun openUserDetails(id: Int) {
+        _userId.value = id
     }
 
 

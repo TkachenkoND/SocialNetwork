@@ -13,7 +13,7 @@ import com.example.hw_3.view_model.DetailsUserViewModel
 import kotlinx.android.synthetic.main.details_activity.*
 
 
-class DetailsUserActivity : AppCompatActivity() {
+class DetailsUserActivity : AppCompatActivity(){
 
     private lateinit var vm: DetailsUserViewModel
 
@@ -24,11 +24,10 @@ class DetailsUserActivity : AppCompatActivity() {
         vm = ViewModelProvider(this).get(DetailsUserViewModel::class.java)
 
         initObservers()
-        vm.loadDetailsUser(getId())
+        vm.loadDetailsUser()
 
-        onClickBtnEdit(btnEdit, getId())
+        vm.loadChageActivity()
 
-        onClickBtnBack(btnBack)
 
     }
 
@@ -50,6 +49,9 @@ class DetailsUserActivity : AppCompatActivity() {
                 .load(it.photoUri)
                 .error(R.drawable.ic_launcher_foreground)
                 .into(detailsImage)
+
+            setButtonListener(btnEdit,it.userId)
+            setButtonListener(btnEdit)
         })
 
     }
@@ -69,10 +71,12 @@ class DetailsUserActivity : AppCompatActivity() {
         }
     }
 
-    fun getId(): Int {
-        val arg = intent.extras
-        val id: Int = arg?.getInt("id")!!.toInt()
-        return id
+
+
+    fun setButtonListener(view: View?, id: Int = 0) {
+        view!!.setOnClickListener{
+            vm.loadChageActivity(id)
+        }
     }
 
 
