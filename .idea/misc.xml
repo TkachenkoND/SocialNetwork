@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Lektorium/Course/HW_3_new_version/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2703125" />
+        <entry key="..\:/Lektorium/Course/HW_3_new_version/app/src/main/res/drawable/error.xml" value="0.202734375" />
+        <entry key="..\:/Lektorium/Course/HW_3_new_version/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2703125" />
+        <entry key="..\:/Lektorium/Course/HW_3_new_version/app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.2703125" />
+        <entry key="..\:/Lektorium/Course/HW_3_new_version/app/src/main/res/layout/activity_main.xml" value="0.2" />
+        <entry key="..\:/Lektorium/Course/HW_3_new_version/app/src/main/res/layout/details_activity.xml" value="0.264" />
+        <entry key="..\:/Lektorium/Course/HW_3_new_version/app/src/main/res/layout/details_activity_user1.xml" value="0.2" />
+        <entry key="..\:/Lektorium/Course/HW_3_new_version/app/src/main/res/layout/details_activity_user2.xml" value="0.190625" />
+        <entry key="..\:/Lektorium/Course/HW_3_new_version/app/src/main/res/layout/details_activity_user3.xml" value="0.190625" />
+        <entry key="..\:/Lektorium/Course/HW_3_new_version/app/src/main/res/layout/details_activity_user4.xml" value="0.190625" />
+        <entry key="..\:/Lektorium/Course/HW_3_new_version/app/src/main/res/layout/details_activity_user5.xml" value="0.190625" />
+        <entry key="..\:/Lektorium/Course/HW_3_new_version/app/src/main/res/layout/details_activity_user6.xml" value="0.190625" />
+        <entry key="..\:/Lektorium/Course/HW_3_new_version/app/src/main/res/layout/details_activity_user7.xml" value="0.190625" />
+        <entry key="..\:/Lektorium/Course/HW_3_new_version/app/src/main/res/layout/user_list_activity.xml" value="0.25416666666666665" />
+        <entry key="..\:/Lektorium/Course/HW_3_new_version/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.2703125" />
+        <entry key="..\:/Lektorium/Course/HW_3_new_version/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.14635416666666667" />
+        <entry key="..\:/Lektorium/Course/HomeWork_3&amp;4/app/src/main/res/drawable/ic_arrow_back.xml" value="0.202734375" />
+        <entry key="..\:/Lektorium/Course/HomeWork_3&amp;4/app/src/main/res/drawable/ic_update.xml" value="0.202734375" />
+        <entry key="..\:/Lektorium/Course/HomeWork_3&amp;4/app/src/main/res/layout/details_activity.xml" value="0.190625" />
+        <entry key="..\:/Lektorium/Course/HomeWork_3&amp;4/app/src/main/res/layout/edit_profile_activity.xml" value="0.190625" />
+        <entry key="..\:/Lektorium/Course/HomeWork_3&amp;4/app/src/main/res/layout/list_item.xml" value="0.190625" />
+        <entry key="..\:/Lektorium/Course/HomeWork_3&amp;4/app/src/main/res/layout/user_list_activity.xml" value="0.190625" />
+        <entry key="..\:/Lektorium/Course/HomeWork_3/app/src/main/res/drawable/circle.xml" value="0.202734375" />
+        <entry key="..\:/Lektorium/Course/HomeWork_3/app/src/main/res/drawable/ic_arrow_back.xml" value="0.202734375" />
+        <entry key="..\:/Lektorium/Course/HomeWork_3/app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.202734375" />
+        <entry key="..\:/Lektorium/Course/HomeWork_3/app/src/main/res/drawable/img.xml" value="0.202734375" />
+        <entry key="..\:/Lektorium/Course/HomeWork_3/app/src/main/res/layout/details_activity.xml" value="0.2" />
+        <entry key="..\:/Lektorium/Course/HomeWork_3/app/src/main/res/layout/edit_profile_activity.xml" value="0.2" />
+        <entry key="..\:/Lektorium/Course/HomeWork_3/app/src/main/res/layout/user_list_activity.xml" value="0.190625" />
+      </map>
+    </option>
+  </component>
+  <component name="ExternalStorageConfigurationManager" enabled="true" />
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>

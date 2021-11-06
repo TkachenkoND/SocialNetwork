@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">HW_3</string>
+    <string name="nick_name">Nick Name</string>
+    <string name="status">Status :</string>
+    <string name="about_me">About me</string>
+    <string name="btnName">FOLLOW</string>
+    <string name="posts">Posts</string>
+    <string name="followers">Followers</string>
+    <string name="following">Following</string>
+    <string name="social_score">Social score</string>
+    <string name="reach">Reach</string>
+    <string name="sharemeter">Sharemeter</string>
+    <string name="edit_profile">edit profile</string>
+    <string name="edit_your_profile">Edit your profile</string>
+    <string name="link_in_your_photo">Link in your photo</string>
+    <string name="change">change</string>
+    <string name="edit">edit</string>
+</resources>
