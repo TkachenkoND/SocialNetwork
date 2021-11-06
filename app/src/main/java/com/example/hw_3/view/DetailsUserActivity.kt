@@ -51,6 +51,7 @@ class DetailsUserActivity : AppCompatActivity(){
                 .into(detailsImage)
 
             setButtonListener(btnEdit)
+            setButtonListener(btnBack)
 
         })
 
@@ -58,7 +59,7 @@ class DetailsUserActivity : AppCompatActivity(){
 
     private fun setButtonListener(view: View?) {
         view!!.setOnClickListener{
-            when(view){
+            when(it){
                 btnEdit -> {
 
                     val intent = Intent(this, EditUserActivity::class.java)

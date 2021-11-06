@@ -7,6 +7,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.hw_3.databinding.UserListActivityBinding
+import com.example.hw_3.model.User
 import com.example.hw_3.view_model.UserActionListener
 import com.example.hw_3.view_model.UserAdapter
 import com.example.hw_3.view_model.UserViewModel
@@ -18,7 +19,10 @@ class UserListActivity : AppCompatActivity() {
     lateinit var binding: UserListActivityBinding
 
     private val adapter = UserAdapter(object : UserActionListener {
-        override fun goToDetails() {
+        override fun goToDetails(user: User) {
+
+            vm.openUserDetails(user.userId)
+            
             vm.userId.observe(this@UserListActivity, Observer {
                 val intent = Intent(this@UserListActivity, DetailsUserActivity::class.java)
                 intent.putExtra("id", it)
