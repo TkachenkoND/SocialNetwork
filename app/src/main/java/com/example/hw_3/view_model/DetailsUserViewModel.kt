@@ -1,18 +1,13 @@
 package com.example.hw_3.view_model
 
 import android.app.Application
-import android.content.Context
-import android.content.Intent
 import android.widget.EditText
-import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.hw_3.model.User
 import com.example.hw_3.repository.UserDataBase
 import com.example.hw_3.repository.UserDataBaseDao
-import com.example.hw_3.view.DetailsUserActivity
-import kotlinx.android.synthetic.main.edit_profile_activity.*
 
 
 class DetailsUserViewModel(application: Application) : AndroidViewModel(application) {
@@ -24,11 +19,7 @@ class DetailsUserViewModel(application: Application) : AndroidViewModel(applicat
     private val _userId = MutableLiveData<Int>()
     val userId: LiveData<Int> = _userId
 
-    private var userDao: UserDataBaseDao
-
-    init {
-        userDao = UserDataBase.getDatabase(application).userDataBaseDao()
-    }
+    private var userDao: UserDataBaseDao = UserDataBase.getDatabase(application).userDataBaseDao()
 
     fun loadDetailsUser(id: Int) {
         _userDetailsLiveData.value = userDao.get(id)

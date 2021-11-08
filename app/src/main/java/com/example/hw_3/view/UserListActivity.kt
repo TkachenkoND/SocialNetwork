@@ -8,9 +8,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.hw_3.databinding.UserListActivityBinding
 import com.example.hw_3.model.User
+import com.example.hw_3.repository.UserDataBase
 import com.example.hw_3.view_model.UserActionListener
 import com.example.hw_3.view_model.UserAdapter
 import com.example.hw_3.view_model.UserViewModel
+import com.example.hw_3.view_model.UserViewModelFactory
 
 class UserListActivity : AppCompatActivity() {
 
@@ -37,7 +39,11 @@ class UserListActivity : AppCompatActivity() {
         binding = UserListActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        vm = ViewModelProvider(this).get(UserViewModel::class.java)
+        val dataSource = UserDataBase.getDatabase(application).userDataBaseDao()
+        val viewModelFactory = UserViewModelFactory(dataSource, application)
+
+        vm = ViewModelProvider(
+            this, viewModelFactory).get(UserViewModel::class.java)
 
         vm.insertUserToDB()
 
