@@ -42,8 +42,7 @@ class UserListActivity : AppCompatActivity() {
         val dataSource = UserDataBase.getDatabase(application).userDataBaseDao()
         val viewModelFactory = UserViewModelFactory(dataSource, application)
 
-        vm = ViewModelProvider(
-            this, viewModelFactory).get(UserViewModel::class.java)
+        vm = ViewModelProvider(this, viewModelFactory).get(UserViewModel::class.java)
 
         vm.insertUserToDB()
 

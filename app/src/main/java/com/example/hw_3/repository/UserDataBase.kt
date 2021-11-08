@@ -11,27 +11,25 @@ abstract class UserDataBase : RoomDatabase() {
 
     abstract fun userDataBaseDao(): UserDataBaseDao
 
-    companion object {
+    companion object{
         @Volatile
         private var INSTANCE: UserDataBase? = null
 
         fun getDatabase(context: Context): UserDataBase {
 
-            synchronized(this) {
-                var instance = INSTANCE
-                if (instance == null){
-                    instance = Room.databaseBuilder(
-                        context.applicationContext,
-                        UserDataBase::class.java,
-                        "user_database")
-                        .allowMainThreadQueries()
-                        .build()
-                    INSTANCE = instance
+            if (INSTANCE == null) {
+                synchronized(UserDataBase::class) {
+                    INSTANCE = buildRoomDB(context)
                 }
-                return instance
             }
-
+            return INSTANCE!!
         }
 
-    }
+        private fun buildRoomDB(context: Context) =
+            Room.databaseBuilder(
+                context.applicationContext,
+                UserDataBase::class.java,
+                "user_database").build()
+        }
+
 }

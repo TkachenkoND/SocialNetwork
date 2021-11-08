@@ -9,17 +9,17 @@ import com.example.hw_3.model.User
 @Dao
 interface UserDataBaseDao {
     @Insert
-    fun insert(night: User)
+    suspend fun insert(night: User)
 
     @Update
-    fun update(user: User)
+    suspend fun update(user: User)
 
     @Query("SELECT * from users WHERE userId = :key")
-    fun get(key: Int): User?
+    suspend fun getUser(key: Int): User?
 
     @Query("SELECT * FROM users")
-    fun getAllUsers(): List<User>
+    suspend fun getAllUsers(): List<User>
 
     @Query("SELECT * FROM users LIMIT 1")
-    fun checkTablesInDataBase(): User?
+    suspend fun checkTablesInDataBase(): User?
 }
