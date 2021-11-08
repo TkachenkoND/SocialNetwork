@@ -30,7 +30,7 @@ abstract class UserDataBase : RoomDatabase() {
                 context.applicationContext,
                 UserDataBase::class.java,
                 "user_database")
-                .allowMainThreadQueries()
+                .fallbackToDestructiveMigration()
                 .build()
         }
 

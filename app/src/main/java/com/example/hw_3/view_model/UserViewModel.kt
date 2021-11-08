@@ -5,9 +5,11 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.example.hw_3.model.*
-import com.example.hw_3.repository.UserDataBase
 import com.example.hw_3.repository.UserDataBaseDao
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class UserViewModel(val database: UserDataBaseDao,
                     application: Application) : AndroidViewModel(application) {
@@ -22,20 +24,35 @@ class UserViewModel(val database: UserDataBaseDao,
 
 
 
-    fun insertUserToDB() {
-        if (database.checkTablesInDataBase() == null) {
-            for (user in userData.userList)
-                database.insert(user)
-        }
+    private suspend fun insert() {
+            if (database.checkTablesInDataBase() == null) {
+                for (user in userData.userList)
+                    database.insert(user)
+            }
+
     }
 
-    fun loadListUsers() {
-        _userListLiveData.value = database.getAllUsers()
+    private suspend fun load() {
+            _userListLiveData.postValue(database.getAllUsers())
     }
 
     fun setUserID(id: Int) {
         _userId.value = id
     }
+
+    fun insertUserToDB(){
+        viewModelScope.launch(Dispatchers.IO) {
+            insert()
+        }
+    }
+
+    fun loadListUsers(){
+        viewModelScope.launch(Dispatchers.IO) {
+            load()
+        }
+    }
+
+
 
 
 }

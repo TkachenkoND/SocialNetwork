@@ -5,9 +5,11 @@ import android.widget.EditText
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.example.hw_3.model.User
 import com.example.hw_3.repository.UserDataBase
-import com.example.hw_3.repository.UserDataBaseDao
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class DetailsUserViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -20,18 +22,33 @@ class DetailsUserViewModel(application: Application) : AndroidViewModel(applicat
 
     val dataSource = UserDataBase.getDatabase(application).userDataBaseDao()
 
-    fun loadDetailsUser(id: Int) {
-        _userDetailsLiveData.value = dataSource.getUser(id)
+    private suspend fun load(id: Int) {
+
+        _userDetailsLiveData.postValue(dataSource.getUser(id))
+
     }
 
-    fun updateUser(user: User) {
+    private suspend fun update(user: User) {
+
         dataSource.update(user)
+
     }
 
     fun setUserId(id: Int){
         _userId.value = id
     }
 
+    fun loadDetailsUser(id: Int){
+        viewModelScope.launch(Dispatchers.IO) {
+            load(id)
+        }
+    }
+
+    fun updateUser(user: User){
+        viewModelScope.launch(Dispatchers.IO) {
+            update(user)
+        }
+    }
 
 
     fun validate(

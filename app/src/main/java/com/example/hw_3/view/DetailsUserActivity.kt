@@ -24,6 +24,7 @@ class DetailsUserActivity : AppCompatActivity(){
 
         vm = ViewModelProvider(this).get(DetailsUserViewModel::class.java)
 
+
         vm.loadDetailsUser(getUserIdFromUserList())
 
         vm.setUserId(getUserIdFromUserList())
