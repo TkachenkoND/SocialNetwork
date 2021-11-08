@@ -80,7 +80,8 @@ class EditUserActivity : AppCompatActivity() {
                     id,
                     strTime,
                 )) {
-
+                //val intent = Intent(this, DetailsUserActivity::class.java)
+                //startActivity(intent)
                 finish()
             }
             else{

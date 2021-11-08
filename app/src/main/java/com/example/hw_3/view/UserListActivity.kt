@@ -12,7 +12,6 @@ import com.example.hw_3.repository.UserDataBase
 import com.example.hw_3.view_model.UserActionListener
 import com.example.hw_3.view_model.UserAdapter
 import com.example.hw_3.view_model.UserViewModel
-import com.example.hw_3.view_model.UserViewModelFactory
 
 class UserListActivity : AppCompatActivity() {
 

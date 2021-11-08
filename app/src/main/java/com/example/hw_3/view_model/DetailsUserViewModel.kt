@@ -5,13 +5,11 @@ import android.widget.EditText
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
 import com.example.hw_3.model.User
+import com.example.hw_3.repository.UserDataBase
 import com.example.hw_3.repository.UserDataBaseDao
-import kotlinx.coroutines.launch
 
-
-class DetailsUserViewModel(val database: UserDataBaseDao, application: Application) : AndroidViewModel(application) {
+class DetailsUserViewModel(application: Application) : AndroidViewModel(application) {
 
 
     private val _userDetailsLiveData = MutableLiveData<User>()
@@ -20,20 +18,14 @@ class DetailsUserViewModel(val database: UserDataBaseDao, application: Applicati
     private val _userId = MutableLiveData<Int>()
     val userId: LiveData<Int> = _userId
 
-    //private val dbHelper = DatabaseHelperImpl(UserDataBase.getDatabase(application))
-
+    val dataSource = UserDataBase.getDatabase(application).userDataBaseDao()
 
     fun loadDetailsUser(id: Int) {
-
-        viewModelScope.launch {
-            _userDetailsLiveData.value = database.getUser(id)
-        }
+        _userDetailsLiveData.value = dataSource.getUser(id)
     }
 
     fun updateUser(user: User) {
-        viewModelScope.launch {
-            database.update(user)
-        }
+        dataSource.update(user)
     }
 
     fun setUserId(id: Int){

@@ -29,7 +29,9 @@ abstract class UserDataBase : RoomDatabase() {
             Room.databaseBuilder(
                 context.applicationContext,
                 UserDataBase::class.java,
-                "user_database").build()
+                "user_database")
+                .allowMainThreadQueries()
+                .build()
         }
 
 }
