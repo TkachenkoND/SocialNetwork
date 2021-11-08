@@ -35,24 +35,15 @@ class EditUserActivity : AppCompatActivity() {
     }
 
     private fun initUserDetailsObservers() {
-        val editImage: EditText = findViewById(R.id.editLink)
-        val editUserName: EditText = findViewById(R.id.editName)
-        val editTextStatus: EditText = findViewById(R.id.editStatus)
-        val editFollowers: EditText = findViewById(R.id.editFollowers)
-        val editFollowing: EditText = findViewById(R.id.editFollowing)
-        val editScope: EditText = findViewById(R.id.editSocialScope)
-        val editSharemeter: EditText = findViewById(R.id.editSharemeter)
-        val editReach: EditText = findViewById(R.id.editReach)
-        val editPosts: EditText = findViewById(R.id.editPosts)
 
         vm.userDetailsLiveData.observe(this, Observer {
             title = it.name
-            editImage.setText(it.photoUri)
-            editUserName.setText(it.name)
-            editTextStatus.setText(it.status)
+            editLink.setText(it.photoUri)
+            editName.setText(it.name)
+            editStatus.setText(it.status)
             editFollowers.setText(it.followers.toString())
             editFollowing.setText(it.following.toString())
-            editScope.setText(it.socialScore.toString())
+            editSocialScope.setText(it.socialScore.toString())
             editSharemeter.setText(it.sharemeter.toString())
             editReach.setText(it.reach)
             editPosts.setText(it.posts)
