@@ -34,17 +34,17 @@ class DetailsUserViewModel(application: Application) : AndroidViewModel(applicat
 
     }
 
-    fun setUserId(id: Int){
+    fun setUserId(id: Int) {
         _userId.value = id
     }
 
-    fun loadDetailsUser(id: Int){
+    fun loadDetailsUser(id: Int) {
         viewModelScope.launch(Dispatchers.IO) {
             load(id)
         }
     }
 
-    fun updateUser(user: User){
+    fun updateUser(user: User) {
         viewModelScope.launch(Dispatchers.IO) {
             update(user)
         }

@@ -11,7 +11,7 @@ abstract class UserDataBase : RoomDatabase() {
 
     abstract fun userDataBaseDao(): UserDataBaseDao
 
-    companion object{
+    companion object {
         @Volatile
         private var INSTANCE: UserDataBase? = null
 
@@ -32,6 +32,6 @@ abstract class UserDataBase : RoomDatabase() {
                 "user_database")
                 .fallbackToDestructiveMigration()
                 .build()
-        }
+    }
 
 }

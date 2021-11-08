@@ -9,12 +9,11 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.hw_3.R
 import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
-import com.example.hw_3.repository.UserDataBase
 import com.example.hw_3.view_model.DetailsUserViewModel
 import kotlinx.android.synthetic.main.details_activity.*
 
 
-class DetailsUserActivity : AppCompatActivity(){
+class DetailsUserActivity : AppCompatActivity() {
 
     private lateinit var vm: DetailsUserViewModel
 
@@ -60,8 +59,8 @@ class DetailsUserActivity : AppCompatActivity(){
     }
 
     private fun setButtonListener(view: View?) {
-        view!!.setOnClickListener{
-            when(it){
+        view!!.setOnClickListener {
+            when (it) {
                 btnEdit -> {
                     vm.setUserId(getUserIdFromUserList())
 
@@ -83,7 +82,6 @@ class DetailsUserActivity : AppCompatActivity(){
     }
 
     private fun getUserIdFromUserList() = intent.extras?.getInt("id")!!.toInt()
-
 
 
 }

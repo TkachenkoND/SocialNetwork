@@ -1,8 +1,5 @@
 package com.example.hw_3.view
 
-
-
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -79,12 +76,10 @@ class EditUserActivity : AppCompatActivity() {
                     editPosts,
                     id,
                     strTime,
-                )) {
-                //val intent = Intent(this, DetailsUserActivity::class.java)
-                //startActivity(intent)
+                )
+            ) {
                 finish()
-            }
-            else{
+            } else {
                 val toast = Toast.makeText(
                     this,
                     "Please fill in all fields !!", Toast.LENGTH_SHORT

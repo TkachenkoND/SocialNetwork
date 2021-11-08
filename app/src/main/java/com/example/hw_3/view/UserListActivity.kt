@@ -12,6 +12,7 @@ import com.example.hw_3.repository.UserDataBase
 import com.example.hw_3.view_model.UserActionListener
 import com.example.hw_3.view_model.UserAdapter
 import com.example.hw_3.view_model.UserViewModel
+import com.example.hw_3.view_model.UserViewModelFactory
 
 class UserListActivity : AppCompatActivity() {
 
@@ -23,7 +24,7 @@ class UserListActivity : AppCompatActivity() {
         override fun goToDetails(user: User) {
 
             vm.setUserID(user.userId)
-            
+
             vm.userId.observe(this@UserListActivity, Observer {
                 val intent = Intent(this@UserListActivity, DetailsUserActivity::class.java)
                 intent.putExtra("id", it)

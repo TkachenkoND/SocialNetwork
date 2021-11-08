@@ -10,14 +10,14 @@ import com.example.hw_3.model.User
 import java.util.ArrayList
 
 class UserAdapter(
-    private val actionListener: UserActionListener
+    private val actionListener: UserActionListener,
 
-) : RecyclerView.Adapter<UserAdapter.UserViewHolder>(), View.OnClickListener {
+    ) : RecyclerView.Adapter<UserAdapter.UserViewHolder>(), View.OnClickListener {
 
     private var userList = ArrayList<User>()
 
     class UserViewHolder(
-        val binding: ListItemBinding
+        val binding: ListItemBinding,
     ) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {
