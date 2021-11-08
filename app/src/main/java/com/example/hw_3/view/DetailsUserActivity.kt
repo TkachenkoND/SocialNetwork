@@ -25,9 +25,9 @@ class DetailsUserActivity : AppCompatActivity(){
 
         vm.loadDetailsUser(getUserIdFromUserList())
 
-        initUserDetailsObservers()
+        //vm.setUserId(getUserIdFromUserList())
 
-        setUserId(getUserIdFromUserList())
+        initUserDetailsObservers()
 
     }
 
@@ -61,9 +61,13 @@ class DetailsUserActivity : AppCompatActivity(){
         view!!.setOnClickListener{
             when(it){
                 btnEdit -> {
+                    vm.setUserId(getUserIdFromUserList())
 
-                    val intent = Intent(this, EditUserActivity::class.java)
-                    startActivity(intent)
+                    vm.userId.observe(this, Observer {
+                        val intent = Intent(this, EditUserActivity::class.java)
+                        intent.putExtra("id", it)
+                        startActivity(intent)
+                    })
                 }
 
                 btnBack -> {
@@ -77,10 +81,6 @@ class DetailsUserActivity : AppCompatActivity(){
     }
 
     private fun getUserIdFromUserList() = intent.extras?.getInt("id")!!.toInt()
-
-    private fun setUserId(id: Int){
-        vm.setUserIdInLiveData(id)
-    }
 
 
 

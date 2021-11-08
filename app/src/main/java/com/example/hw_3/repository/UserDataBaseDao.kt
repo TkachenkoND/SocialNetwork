@@ -21,5 +21,5 @@ interface UserDataBaseDao {
     fun getAllUsers(): List<User>
 
     @Query("SELECT * FROM users LIMIT 1")
-    fun voidСheckDb(): User?
+    fun checkTablesInDataBase(): User?
 }

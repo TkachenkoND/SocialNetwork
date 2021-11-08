@@ -1,17 +1,15 @@
 package com.example.hw_3.view
 
 
+
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.Button
-import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.hw_3.R
-import com.example.hw_3.model.User
 import com.example.hw_3.view_model.DetailsUserViewModel
 import kotlinx.android.synthetic.main.edit_profile_activity.*
 
@@ -27,10 +25,11 @@ class EditUserActivity : AppCompatActivity() {
 
         vm = ViewModelProvider(this).get(DetailsUserViewModel::class.java)
 
-        initUserDetailsObservers()
-
         loadDetailsUser()
 
+        initUserDetailsObservers()
+
+        onClickButChange(btn_change, getUserIdFormDetailsUser())
 
     }
 
@@ -53,34 +52,47 @@ class EditUserActivity : AppCompatActivity() {
     }
 
     private fun loadDetailsUser() {
+
+        vm.setUserId(getUserIdFormDetailsUser())
+
         vm.userId.observe(this, Observer {
             vm.loadDetailsUser(it)
-            onClickButChange(btn_change, it)
+
         })
+
+
     }
 
     private fun onClickButChange(view: View, id: Int) {
 
         view.setOnClickListener {
 
-            vm.validate(
-                editLink,
-                editName,
-                editStatus,
-                editFollowers,
-                editFollowing,
-                editSocialScope,
-                editSharemeter,
-                editReach,
-                editPosts,
-                id,
-                strTime,
-                application
+            if (vm.validate(
+                    editLink,
+                    editName,
+                    editStatus,
+                    editFollowers,
+                    editFollowing,
+                    editSocialScope,
+                    editSharemeter,
+                    editReach,
+                    editPosts,
+                    id,
+                    strTime,
+                )) {
+                //val intent = Intent(this, DetailsUserActivity::class.java)
+                //startActivity(intent)
+                finish()
+            }
+            else{
+                val toast = Toast.makeText(
+                    this,
+                    "Please fill in all fields !!", Toast.LENGTH_SHORT
                 )
-
-
-
-
+                toast.show()
+            }
         }
     }
+
+    private fun getUserIdFormDetailsUser() = intent.extras?.getInt("id")!!.toInt()
 }

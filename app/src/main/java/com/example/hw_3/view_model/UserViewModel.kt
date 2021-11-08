@@ -21,8 +21,9 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
 
     val dataSource = UserDataBase.getDatabase(application).userDataBaseDao()
 
+
     fun insertUserToDB() {
-        if (dataSource.voidСheckDb() == null) {
+        if (dataSource.checkTablesInDataBase() == null) {
             for (user in userData.userList)
                 dataSource.insert(user)
         }
@@ -32,7 +33,7 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
         _userListLiveData.value = dataSource.getAllUsers()
     }
 
-    fun openUserDetails(id: Int) {
+    fun setUserID(id: Int) {
         _userId.value = id
     }
 

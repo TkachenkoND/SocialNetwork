@@ -2,6 +2,7 @@ package com.example.hw_3.view_model
 
 import android.app.Application
 import android.content.Context
+import android.content.Intent
 import android.widget.EditText
 import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
@@ -10,9 +11,12 @@ import androidx.lifecycle.MutableLiveData
 import com.example.hw_3.model.User
 import com.example.hw_3.repository.UserDataBase
 import com.example.hw_3.repository.UserDataBaseDao
+import com.example.hw_3.view.DetailsUserActivity
+import kotlinx.android.synthetic.main.edit_profile_activity.*
 
 
 class DetailsUserViewModel(application: Application) : AndroidViewModel(application) {
+
 
     private val _userDetailsLiveData = MutableLiveData<User>()
     val userDetailsLiveData: LiveData<User> = _userDetailsLiveData
@@ -34,9 +38,11 @@ class DetailsUserViewModel(application: Application) : AndroidViewModel(applicat
         userDao.update(user)
     }
 
-    fun setUserIdInLiveData(id: Int) {
+    fun setUserId(id: Int){
         _userId.value = id
     }
+
+
 
     fun validate(
         editImage: EditText,
@@ -50,21 +56,14 @@ class DetailsUserViewModel(application: Application) : AndroidViewModel(applicat
         editPosts: EditText,
         id: Int,
         strTime: String,
-        context: Context
-    ) {
+    ): Boolean {
 
         if (editUserName.text.isEmpty() || editImage.text.isEmpty() || editTextStatus.text.isEmpty() ||
             editScope.text.isEmpty() || editFollowers.text.isEmpty() || editFollowing.text.isEmpty() ||
             editPosts.text.isEmpty() || editReach.text.isEmpty() || editSharemeter.text.isEmpty()
         ) {
 
-            val toast = Toast.makeText(
-                context,
-                "Please fill in all fields !!",
-                Toast.LENGTH_SHORT
-            )
-            toast.show()
-
+            return false
         } else {
             val user = User(
                 id,
@@ -80,6 +79,7 @@ class DetailsUserViewModel(application: Application) : AndroidViewModel(applicat
                 editSharemeter.text.toString().toInt()
             )
             updateUser(user)
+            return true
         }
     }
 

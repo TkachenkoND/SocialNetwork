@@ -21,7 +21,7 @@ class UserListActivity : AppCompatActivity() {
     private val adapter = UserAdapter(object : UserActionListener {
         override fun goToDetails(user: User) {
 
-            vm.openUserDetails(user.userId)
+            vm.setUserID(user.userId)
             
             vm.userId.observe(this@UserListActivity, Observer {
                 val intent = Intent(this@UserListActivity, DetailsUserActivity::class.java)
