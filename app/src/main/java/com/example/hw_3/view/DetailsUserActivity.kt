@@ -26,9 +26,7 @@ class DetailsUserActivity : AppCompatActivity() {
 
         vm = ViewModelProvider(this)[DetailsUserViewModel::class.java]
 
-        vm.loadDetailsUser(intent.extras?.getInt("id")!!.toInt())
-
-        vm.setUserId(intent.extras?.getInt("id")!!.toInt())
+        vm.loadDetailsUser()
 
         initUserDetailsObservers()
 
