@@ -9,27 +9,25 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.hw_3.databinding.UserListActivityBinding
 import com.example.hw_3.model.User
 import com.example.hw_3.repository.UserDataBase
-import com.example.hw_3.view_model.UserActionListener
-import com.example.hw_3.view_model.UserAdapter
-import com.example.hw_3.view_model.UserViewModel
-import com.example.hw_3.view_model.UserViewModelFactory
+import com.example.hw_3.view_model.*
 
 class UserListActivity : AppCompatActivity() {
 
     private lateinit var vm: UserViewModel
+    private lateinit var detailsVm: DetailsUserViewModel
+
+
 
     lateinit var binding: UserListActivityBinding
 
     private val adapter = UserAdapter(object : UserActionListener {
         override fun goToDetails(user: User) {
 
-            vm.setUserID(user.userId)
+            detailsVm.setUserId(user.userId)
+            val intent = Intent(this@UserListActivity, DetailsUserActivity::class.java)
+            //intent.putExtra("id", user.userId)
+            startActivity(intent)
 
-            vm.userId.observe(this@UserListActivity, Observer {
-                val intent = Intent(this@UserListActivity, DetailsUserActivity::class.java)
-                intent.putExtra("id", it)
-                startActivity(intent)
-            })
         }
 
     })
@@ -42,7 +40,9 @@ class UserListActivity : AppCompatActivity() {
         val dataSource = UserDataBase.getDatabase(application).userDataBaseDao()
         val viewModelFactory = UserViewModelFactory(dataSource, application)
 
-        vm = ViewModelProvider(this, viewModelFactory).get(UserViewModel::class.java)
+        vm = ViewModelProvider(this, viewModelFactory)[UserViewModel::class.java]
+        detailsVm = ViewModelProvider(this)[DetailsUserViewModel::class.java]
+
 
         vm.insertUserToDB()
 

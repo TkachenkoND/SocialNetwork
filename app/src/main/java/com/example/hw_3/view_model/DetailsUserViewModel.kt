@@ -17,14 +17,14 @@ class DetailsUserViewModel(application: Application) : AndroidViewModel(applicat
     private val _userDetailsLiveData = MutableLiveData<User>()
     val userDetailsLiveData: LiveData<User> = _userDetailsLiveData
 
-    private val _userId = MutableLiveData<Int>()
-    val userId: LiveData<Int> = _userId
+    private var _userId = MutableLiveData<Int>()
+    var userId: LiveData<Int> = _userId
 
     val dataSource = UserDataBase.getDatabase(application).userDataBaseDao()
 
-    private suspend fun load(id: Int) {
+    private suspend fun load() {
 
-        _userDetailsLiveData.postValue(dataSource.getUser(id))
+        _userDetailsLiveData.postValue(dataSource.getUser(_userId.value!!))
 
     }
 
@@ -38,13 +38,13 @@ class DetailsUserViewModel(application: Application) : AndroidViewModel(applicat
         _userId.value = id
     }
 
-    fun loadDetailsUser(id: Int) {
-        viewModelScope.launch(Dispatchers.IO) {
-            load(id)
+    fun loadDetailsUser() {
+        viewModelScope.launch {
+            load()
         }
     }
 
-    fun updateUser(user: User) {
+    private fun updateUser(user: User) {
         viewModelScope.launch(Dispatchers.IO) {
             update(user)
         }

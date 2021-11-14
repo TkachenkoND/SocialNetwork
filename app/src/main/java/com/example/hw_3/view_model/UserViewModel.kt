@@ -19,10 +19,8 @@ class UserViewModel(val database: UserDataBaseDao,
     private val _userListLiveData = MutableLiveData<List<User>>()
     val userListLiveData: LiveData<List<User>> = _userListLiveData
 
-    private val _userId = MutableLiveData<Int>()
-    val userId: LiveData<Int> = _userId
-
-
+    private var _userId = MutableLiveData<Int>()
+    var userId: LiveData<Int> = _userId
 
     private suspend fun insert() {
             if (database.checkTablesInDataBase() == null) {
@@ -34,10 +32,6 @@ class UserViewModel(val database: UserDataBaseDao,
 
     private suspend fun load() {
             _userListLiveData.postValue(database.getAllUsers())
-    }
-
-    fun setUserID(id: Int) {
-        _userId.value = id
     }
 
     fun insertUserToDB(){
@@ -52,7 +46,9 @@ class UserViewModel(val database: UserDataBaseDao,
         }
     }
 
-
+    fun setUserId(id: Int){
+        _userId.value = id
+    }
 
 
 }

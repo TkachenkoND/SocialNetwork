@@ -1,5 +1,6 @@
 package com.example.hw_3.view_model
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -54,6 +55,7 @@ class UserAdapter(
         return userList.size
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun addUsersToAdapter(users: List<User>) {
         userList.addAll(users)
         notifyDataSetChanged()

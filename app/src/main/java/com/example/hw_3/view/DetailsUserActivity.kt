@@ -5,11 +5,14 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
 import com.example.hw_3.R
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
+import com.example.hw_3.repository.UserDataBase
 import com.example.hw_3.view_model.DetailsUserViewModel
+import com.example.hw_3.view_model.UserViewModel
+import com.example.hw_3.view_model.UserViewModelFactory
 import kotlinx.android.synthetic.main.details_activity.*
 
 
@@ -21,16 +24,18 @@ class DetailsUserActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.details_activity)
 
-        vm = ViewModelProvider(this).get(DetailsUserViewModel::class.java)
+        vm = ViewModelProvider(this)[DetailsUserViewModel::class.java]
 
+        vm.loadDetailsUser(intent.extras?.getInt("id")!!.toInt())
 
-        vm.loadDetailsUser(getUserIdFromUserList())
-
-        vm.setUserId(getUserIdFromUserList())
+        vm.setUserId(intent.extras?.getInt("id")!!.toInt())
 
         initUserDetailsObservers()
 
+        setButtonListener(btnEdit)
+        setButtonListener(btnBack)
     }
+
 
     private fun initUserDetailsObservers() {
 
@@ -51,9 +56,6 @@ class DetailsUserActivity : AppCompatActivity() {
                 .error(R.drawable.ic_launcher_foreground)
                 .into(detailsImage)
 
-            setButtonListener(btnEdit)
-            setButtonListener(btnBack)
-
         })
 
     }
@@ -62,17 +64,11 @@ class DetailsUserActivity : AppCompatActivity() {
         view!!.setOnClickListener {
             when (it) {
                 btnEdit -> {
-                    vm.setUserId(getUserIdFromUserList())
-
-                    vm.userId.observe(this, Observer {
-                        val intent = Intent(this, EditUserActivity::class.java)
-                        intent.putExtra("id", it)
-                        startActivity(intent)
-                    })
+                    val intent = Intent(this, EditUserActivity::class.java)
+                    startActivity(intent)
                 }
 
                 btnBack -> {
-
                     val intent = Intent(this, UserListActivity::class.java)
                     startActivity(intent)
                 }
@@ -81,7 +77,7 @@ class DetailsUserActivity : AppCompatActivity() {
         }
     }
 
-    private fun getUserIdFromUserList() = intent.extras?.getInt("id")!!.toInt()
+
 
 
 }

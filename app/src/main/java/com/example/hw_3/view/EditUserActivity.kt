@@ -22,11 +22,12 @@ class EditUserActivity : AppCompatActivity() {
 
         vm = ViewModelProvider(this).get(DetailsUserViewModel::class.java)
 
-        loadDetailsUser()
+        vm.loadDetailsUser()
+
+        onClickButChange(btn_change, vm.userId.value!!)
+
 
         initUserDetailsObservers()
-
-        onClickButChange(btn_change, getUserIdFormDetailsUser())
 
     }
 
@@ -45,18 +46,6 @@ class EditUserActivity : AppCompatActivity() {
             editPosts.setText(it.posts)
             strTime = it.time
         })
-
-    }
-
-    private fun loadDetailsUser() {
-
-        vm.setUserId(getUserIdFormDetailsUser())
-
-        vm.userId.observe(this, Observer {
-            vm.loadDetailsUser(it)
-
-        })
-
 
     }
 
@@ -89,5 +78,4 @@ class EditUserActivity : AppCompatActivity() {
         }
     }
 
-    private fun getUserIdFormDetailsUser() = intent.extras?.getInt("id")!!.toInt()
 }
