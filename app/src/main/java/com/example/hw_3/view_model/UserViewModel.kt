@@ -11,44 +11,37 @@ import com.example.hw_3.repository.UserDataBaseDao
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class UserViewModel(val database: UserDataBaseDao,
-                    application: Application) : AndroidViewModel(application) {
+class UserViewModel(
+    val database: UserDataBaseDao,
+    application: Application,
+) : AndroidViewModel(application) {
 
     val userData: UserData = UserData()
 
     private val _userListLiveData = MutableLiveData<List<User>>()
     val userListLiveData: LiveData<List<User>> = _userListLiveData
 
-    private var _userId = MutableLiveData<Int>()
-    var userId: LiveData<Int> = _userId
-
     private suspend fun insert() {
-            if (database.checkTablesInDataBase() == null) {
-                for (user in userData.userList)
-                    database.insert(user)
-            }
-
+        if (database.checkTablesInDataBase() == null) {
+            for (user in userData.userList)
+                database.insert(user)
+        }
     }
 
     private suspend fun load() {
-            _userListLiveData.postValue(database.getAllUsers())
+        _userListLiveData.postValue(database.getAllUsers())
     }
 
-    fun insertUserToDB(){
+    fun insertUserToDB() {
         viewModelScope.launch(Dispatchers.IO) {
             insert()
         }
     }
 
-    fun loadListUsers(){
+    fun loadListUsers() {
         viewModelScope.launch(Dispatchers.IO) {
             load()
         }
     }
-
-    fun setUserId(id: Int){
-        _userId.value = id
-    }
-
 
 }

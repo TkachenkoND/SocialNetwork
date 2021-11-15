@@ -14,18 +14,14 @@ import com.example.hw_3.view_model.*
 class UserListActivity : AppCompatActivity() {
 
     private lateinit var vm: UserViewModel
-    private lateinit var detailsVm: DetailsUserViewModel
-
-
 
     lateinit var binding: UserListActivityBinding
 
     private val adapter = UserAdapter(object : UserActionListener {
         override fun goToDetails(user: User) {
 
-            detailsVm.setUserId(user.userId)
             val intent = Intent(this@UserListActivity, DetailsUserActivity::class.java)
-            //intent.putExtra("id", user.userId)
+            intent.putExtra("id", user.userId)
             startActivity(intent)
 
         }
@@ -41,8 +37,6 @@ class UserListActivity : AppCompatActivity() {
         val viewModelFactory = UserViewModelFactory(dataSource, application)
 
         vm = ViewModelProvider(this, viewModelFactory)[UserViewModel::class.java]
-        detailsVm = ViewModelProvider(this)[DetailsUserViewModel::class.java]
-
 
         vm.insertUserToDB()
 
@@ -63,7 +57,6 @@ class UserListActivity : AppCompatActivity() {
                 adapter.addUsersToAdapter(it)
 
             })
-
         }
     }
 

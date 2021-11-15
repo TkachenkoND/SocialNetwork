@@ -1,9 +1,5 @@
 package com.example.hw_3.model
 
-import androidx.room.Entity
-import com.example.hw_3.view_model.UserViewModel
-
-
 class UserData {
 
     val userList = listOf(

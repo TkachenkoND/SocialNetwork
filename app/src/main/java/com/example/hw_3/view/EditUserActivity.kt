@@ -1,7 +1,6 @@
 package com.example.hw_3.view
 
 import android.os.Bundle
-import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -20,12 +19,13 @@ class EditUserActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.edit_profile_activity)
 
-        vm = ViewModelProvider(this).get(DetailsUserViewModel::class.java)
+        vm = ViewModelProvider(this)[DetailsUserViewModel::class.java]
+
+        vm.setUserId(getUserIdFromUserDetails())
 
         vm.loadDetailsUser()
 
-        onClickButChange(btn_change, vm.userId.value!!)
-
+        onClickButChange()
 
         initUserDetailsObservers()
 
@@ -49,9 +49,9 @@ class EditUserActivity : AppCompatActivity() {
 
     }
 
-    private fun onClickButChange(view: View, id: Int) {
+    private fun onClickButChange() {
 
-        view.setOnClickListener {
+        btn_change.setOnClickListener {
 
             if (vm.validate(
                     editLink,
@@ -63,7 +63,7 @@ class EditUserActivity : AppCompatActivity() {
                     editSharemeter,
                     editReach,
                     editPosts,
-                    id,
+                    getUserIdFromUserDetails(),
                     strTime,
                 )
             ) {
@@ -77,5 +77,7 @@ class EditUserActivity : AppCompatActivity() {
             }
         }
     }
+
+    private fun getUserIdFromUserDetails() = intent.extras?.getInt("id")!!.toInt()
 
 }

@@ -3,16 +3,12 @@ package com.example.hw_3.view
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.example.hw_3.R
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
-import com.example.hw_3.repository.UserDataBase
 import com.example.hw_3.view_model.DetailsUserViewModel
-import com.example.hw_3.view_model.UserViewModel
-import com.example.hw_3.view_model.UserViewModelFactory
 import kotlinx.android.synthetic.main.details_activity.*
 
 
@@ -26,14 +22,15 @@ class DetailsUserActivity : AppCompatActivity() {
 
         vm = ViewModelProvider(this)[DetailsUserViewModel::class.java]
 
+        vm.setUserId(getUserIdFromUserList())
         vm.loadDetailsUser()
 
         initUserDetailsObservers()
 
-        setButtonListener(btnEdit)
-        setButtonListener(btnBack)
-    }
+        setButtonListener()
+        initNavigationObservers()
 
+    }
 
     private fun initUserDetailsObservers() {
 
@@ -58,24 +55,34 @@ class DetailsUserActivity : AppCompatActivity() {
 
     }
 
-    private fun setButtonListener(view: View?) {
-        view!!.setOnClickListener {
-            when (it) {
-                btnEdit -> {
-                    val intent = Intent(this, EditUserActivity::class.java)
-                    startActivity(intent)
-                }
-
-                btnBack -> {
-                    val intent = Intent(this, UserListActivity::class.java)
-                    startActivity(intent)
-                }
+    private fun initNavigationObservers() {
+        vm.navigateToEdit.observe(this, Observer {
+            if (it) {
+                val intent = Intent(this, EditUserActivity::class.java)
+                intent.putExtra("id", getUserIdFromUserList())
+                startActivity(intent)
             }
+        })
 
+        vm.navigateBack.observe(this, Observer {
+            if (it) {
+                val intent = Intent(this, UserListActivity::class.java)
+                startActivity(intent)
+            }
+        })
+
+    }
+
+    private fun setButtonListener() {
+        btnEdit.setOnClickListener {
+            vm.navigateToEdit()
+        }
+
+        btnBack.setOnClickListener {
+            vm.navigateBack()
         }
     }
 
-
-
+    private fun getUserIdFromUserList() = intent.extras?.getInt("id")!!.toInt()
 
 }

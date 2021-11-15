@@ -16,7 +16,7 @@ interface UserDataBaseDao {
     suspend fun update(user: User)
 
     @Query("SELECT * from users WHERE userId = :key")
-    suspend fun getUser(key: Int): User?
+    fun getUser(key: Int): LiveData<User?>
 
     @Query("SELECT * FROM users")
     suspend fun getAllUsers(): List<User>

@@ -47,8 +47,6 @@ class UserAdapter(
             userName.text = user.name
             timeToOnline.text = user.time
         }
-
-
     }
 
     override fun getItemCount(): Int {
@@ -65,9 +63,7 @@ class UserAdapter(
         val user: User = v.tag as User
 
         actionListener.goToDetails(user)
-
     }
-
 }
 
 interface UserActionListener {

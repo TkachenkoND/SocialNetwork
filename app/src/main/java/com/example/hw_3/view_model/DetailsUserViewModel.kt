@@ -5,6 +5,7 @@ import android.widget.EditText
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import androidx.lifecycle.viewModelScope
 import com.example.hw_3.model.User
 import com.example.hw_3.repository.UserDataBase
@@ -18,20 +19,17 @@ class DetailsUserViewModel(application: Application) : AndroidViewModel(applicat
     val userDetailsLiveData: LiveData<User> = _userDetailsLiveData
 
     private var _userId = MutableLiveData<Int>()
-    var userId: LiveData<Int> = _userId
+
+    private var _navigateToEdit = MutableLiveData<Boolean>()
+    var navigateToEdit: LiveData<Boolean> = _navigateToEdit
+
+    private var _navigateBack = MutableLiveData<Boolean>()
+    var navigateBack: LiveData<Boolean> = _navigateBack
 
     val dataSource = UserDataBase.getDatabase(application).userDataBaseDao()
 
-    private suspend fun load() {
-
-        _userDetailsLiveData.postValue(dataSource.getUser(_userId.value!!))
-
-    }
-
     private suspend fun update(user: User) {
-
         dataSource.update(user)
-
     }
 
     fun setUserId(id: Int) {
@@ -39,9 +37,9 @@ class DetailsUserViewModel(application: Application) : AndroidViewModel(applicat
     }
 
     fun loadDetailsUser() {
-        viewModelScope.launch {
-            load()
-        }
+        dataSource.getUser(_userId.value!!).observeForever(Observer {
+            _userDetailsLiveData.postValue(it)
+        })
     }
 
     private fun updateUser(user: User) {
@@ -88,6 +86,14 @@ class DetailsUserViewModel(application: Application) : AndroidViewModel(applicat
             updateUser(user)
             return true
         }
+    }
+
+    fun navigateToEdit() {
+        _navigateToEdit.value = true
+    }
+
+    fun navigateBack() {
+        _navigateBack.value = true
     }
 
 
