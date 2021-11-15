@@ -22,17 +22,11 @@ class EditUserActivity : AppCompatActivity() {
         vm = ViewModelProvider(this)[DetailsUserViewModel::class.java]
 
         vm.setUserId(getUserIdFromUserDetails())
-
-        vm.loadDetailsUser()
-
         onClickButChange()
-
         initUserDetailsObservers()
-
     }
 
     private fun initUserDetailsObservers() {
-
         vm.userDetailsLiveData.observe(this, Observer {
             title = it.name
             editLink.setText(it.photoUri)
@@ -46,14 +40,11 @@ class EditUserActivity : AppCompatActivity() {
             editPosts.setText(it.posts)
             strTime = it.time
         })
-
     }
 
     private fun onClickButChange() {
-
         btn_change.setOnClickListener {
-
-            if (vm.validate(
+            if (vm.validateAndUpdateUser(
                     editLink,
                     editName,
                     editStatus,
@@ -63,7 +54,6 @@ class EditUserActivity : AppCompatActivity() {
                     editSharemeter,
                     editReach,
                     editPosts,
-                    getUserIdFromUserDetails(),
                     strTime,
                 )
             ) {
@@ -79,5 +69,4 @@ class EditUserActivity : AppCompatActivity() {
     }
 
     private fun getUserIdFromUserDetails() = intent.extras?.getInt("id")!!.toInt()
-
 }

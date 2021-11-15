@@ -23,19 +23,13 @@ class DetailsUserActivity : AppCompatActivity() {
         vm = ViewModelProvider(this)[DetailsUserViewModel::class.java]
 
         vm.setUserId(getUserIdFromUserList())
-        vm.loadDetailsUser()
-
         initUserDetailsObservers()
-
         setButtonListener()
         initNavigationObservers()
-
     }
 
     private fun initUserDetailsObservers() {
-
         vm.userDetailsLiveData.observe(this, Observer {
-
             title = it.name
             detailsUserName.text = it.name
             detailsUserStatus.text = it.status
@@ -50,17 +44,17 @@ class DetailsUserActivity : AppCompatActivity() {
                 .load(it.photoUri)
                 .error(R.drawable.ic_launcher_foreground)
                 .into(detailsImage)
-
         })
-
     }
 
     private fun initNavigationObservers() {
         vm.navigateToEdit.observe(this, Observer {
             if (it) {
-                val intent = Intent(this, EditUserActivity::class.java)
-                intent.putExtra("id", getUserIdFromUserList())
-                startActivity(intent)
+                vm.userId.observe(this, Observer {
+                    val intent = Intent(this, EditUserActivity::class.java)
+                    intent.putExtra("id", it)
+                    startActivity(intent)
+                })
             }
         })
 
@@ -70,19 +64,16 @@ class DetailsUserActivity : AppCompatActivity() {
                 startActivity(intent)
             }
         })
-
     }
 
     private fun setButtonListener() {
         btnEdit.setOnClickListener {
             vm.navigateToEdit()
         }
-
         btnBack.setOnClickListener {
             vm.navigateBack()
         }
     }
 
     private fun getUserIdFromUserList() = intent.extras?.getInt("id")!!.toInt()
-
 }

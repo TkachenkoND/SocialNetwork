@@ -37,7 +37,6 @@ class UserAdapter(
 
         with(holder.binding) {
             holder.itemView.tag = user
-
             Glide.with(userPhoto.context)
                 .load(user.photoUri)
                 .error(com.example.hw_3.R.drawable.ic_launcher_foreground)

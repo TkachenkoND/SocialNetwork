@@ -19,13 +19,14 @@ class UserListActivity : AppCompatActivity() {
 
     private val adapter = UserAdapter(object : UserActionListener {
         override fun goToDetails(user: User) {
+            vm.setUserId(user.userId)
 
-            val intent = Intent(this@UserListActivity, DetailsUserActivity::class.java)
-            intent.putExtra("id", user.userId)
-            startActivity(intent)
-
+            vm.userId.observe(this@UserListActivity, Observer {
+                val intent = Intent(this@UserListActivity, DetailsUserActivity::class.java)
+                intent.putExtra("id",it)
+                startActivity(intent)
+            })
         }
-
     })
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,11 +40,8 @@ class UserListActivity : AppCompatActivity() {
         vm = ViewModelProvider(this, viewModelFactory)[UserViewModel::class.java]
 
         vm.insertUserToDB()
-
         vm.loadListUsers()
-
         init()
-
     }
 
     private fun init() {
@@ -51,14 +49,9 @@ class UserListActivity : AppCompatActivity() {
             recyclerView.layoutManager = LinearLayoutManager(this@UserListActivity)
 
             recyclerView.adapter = adapter
-
             vm.userListLiveData.observe(this@UserListActivity, Observer {
-
                 adapter.addUsersToAdapter(it)
-
             })
         }
     }
-
-
 }
