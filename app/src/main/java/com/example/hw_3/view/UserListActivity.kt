@@ -21,11 +21,10 @@ class UserListActivity : AppCompatActivity() {
         override fun goToDetails(user: User) {
             vm.setUserId(user.userId)
 
-            vm.userId.observe(this@UserListActivity, Observer {
-                val intent = Intent(this@UserListActivity, DetailsUserActivity::class.java)
-                intent.putExtra("id",it)
-                startActivity(intent)
-            })
+            val intent = Intent(this@UserListActivity, DetailsUserActivity::class.java)
+            intent.putExtra("id",vm.userId.value)
+            startActivity(intent)
+
         }
     })
 

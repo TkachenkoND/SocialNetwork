@@ -50,11 +50,10 @@ class DetailsUserActivity : AppCompatActivity() {
     private fun initNavigationObservers() {
         vm.navigateToEdit.observe(this, Observer {
             if (it) {
-                vm.userId.observe(this, Observer {
                     val intent = Intent(this, EditUserActivity::class.java)
-                    intent.putExtra("id", it)
+                    intent.putExtra("id", vm.userId.value)
                     startActivity(intent)
-                })
+
             }
         })
 
