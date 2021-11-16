@@ -66,7 +66,7 @@ class DetailsUserActivity : AppCompatActivity() {
     }
 
     private fun setButtonListener() {
-        
+
         btnEdit.setOnClickListener {
             vm.navigateToEdit()
         }

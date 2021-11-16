@@ -2,7 +2,6 @@ package com.example.hw_3.view_model
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -10,10 +9,12 @@ import com.example.hw_3.databinding.ListItemBinding
 import com.example.hw_3.model.User
 import java.util.ArrayList
 
+typealias UserActionListener = (User) -> Unit
+
 class UserAdapter(
     private val actionListener: UserActionListener,
 
-    ) : RecyclerView.Adapter<UserAdapter.UserViewHolder>(), View.OnClickListener {
+    ) : RecyclerView.Adapter<UserAdapter.UserViewHolder>(){
 
     private var userList = ArrayList<User>()
 
@@ -25,8 +26,6 @@ class UserAdapter(
 
         val inflater = LayoutInflater.from(parent.context)
         val binding = ListItemBinding.inflate(inflater, parent, false)
-
-        binding.root.setOnClickListener(this)
 
         return UserViewHolder(binding)
     }
@@ -45,6 +44,10 @@ class UserAdapter(
 
             userName.text = user.name
             timeToOnline.text = user.time
+
+            holder.itemView.setOnClickListener {
+                actionListener(user)
+            }
         }
     }
 
@@ -57,14 +60,4 @@ class UserAdapter(
         userList.addAll(users)
         notifyDataSetChanged()
     }
-
-    override fun onClick(v: View) {
-        val user: User = v.tag as User
-
-        actionListener.goToDetails(user)
-    }
-}
-
-interface UserActionListener {
-    fun goToDetails(user: User)
 }

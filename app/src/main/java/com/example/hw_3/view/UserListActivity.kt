@@ -17,16 +17,13 @@ class UserListActivity : AppCompatActivity() {
 
     lateinit var binding: UserListActivityBinding
 
-    private val adapter = UserAdapter(object : UserActionListener {
-        override fun goToDetails(user: User) {
-            vm.setUserId(user.userId)
+    private val adapter = UserAdapter { user ->
+        vm.setUserId(user.userId)
 
-            val intent = Intent(this@UserListActivity, DetailsUserActivity::class.java)
-            intent.putExtra("id",vm.userId.value)
-            startActivity(intent)
-
-        }
-    })
+        val intent = Intent(this@UserListActivity, DetailsUserActivity::class.java)
+        intent.putExtra("id",vm.userId.value)
+        startActivity(intent)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
