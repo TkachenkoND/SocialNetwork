@@ -10,7 +10,7 @@ import com.example.hw_3.model.User
 @Dao
 interface UserDataBaseDao {
     @Insert
-    suspend fun insert(night: User)
+    suspend fun insert(user: User)
 
     @Update
     suspend fun update(user: User)
@@ -23,4 +23,5 @@ interface UserDataBaseDao {
 
     @Query("SELECT * FROM users LIMIT 1")
     suspend fun checkTablesInDataBase(): User?
+
 }

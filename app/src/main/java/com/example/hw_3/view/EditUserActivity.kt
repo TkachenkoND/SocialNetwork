@@ -6,9 +6,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.hw_3.R
+import com.example.hw_3.repository.UserDataBase
+import com.example.hw_3.view_model.AddNewUserViewModelFactory
+import com.example.hw_3.view_model.AddUserViewModel
 import com.example.hw_3.view_model.DetailsUserViewModel
+import com.example.hw_3.view_model.DetailsUserViewModelFactory
 import kotlinx.android.synthetic.main.edit_profile_activity.*
-
 
 class EditUserActivity : AppCompatActivity() {
 
@@ -19,7 +22,10 @@ class EditUserActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.edit_profile_activity)
 
-        vm = ViewModelProvider(this)[DetailsUserViewModel::class.java]
+        val dataSource = UserDataBase.getDatabase(application).userDataBaseDao()
+
+        val detailsUserViewModelFactory = DetailsUserViewModelFactory(dataSource, application)
+        vm = ViewModelProvider(this, detailsUserViewModelFactory)[DetailsUserViewModel::class.java]
 
         vm.setUserId(getUserIdFromUserDetails())
         onClickButChange()

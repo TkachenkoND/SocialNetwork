@@ -4,44 +4,25 @@ import android.app.Application
 import android.widget.EditText
 import androidx.lifecycle.*
 import com.example.hw_3.model.User
-import com.example.hw_3.repository.UserDataBase
 import com.example.hw_3.repository.UserDataBaseDao
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class DetailsUserViewModel(
-    val database: UserDataBaseDao, application: Application,
-) : AndroidViewModel(application) {
+class AddUserViewModel(
+    val database: UserDataBaseDao,
+    application: Application, ) : AndroidViewModel(application) {
 
-    private var _userId = MutableLiveData<Int>()
-    val userId: LiveData<Int> = _userId
-
-    val userDetailsLiveData: LiveData<User> = Transformations.switchMap(userId) { id ->
-        database.getUser(id)
+    private suspend fun addNewUser(user: User) {
+        database.insert(user)
     }
 
-    private var _navigateToEdit = MutableLiveData<Boolean>()
-    var navigateToEdit: LiveData<Boolean> = _navigateToEdit
-
-    private var _navigateBack = MutableLiveData<Boolean>()
-    var navigateBack: LiveData<Boolean> = _navigateBack
-
-
-    private suspend fun update(user: User) {
-        database.update(user)
-    }
-
-    fun setUserId(id: Int) {
-        _userId.value = id
-    }
-
-    private fun updateUser(user: User) {
+    fun addNewUserToDb(user: User) {
         viewModelScope.launch(Dispatchers.IO) {
-            update(user)
+            addNewUser(user)
         }
     }
 
-    fun validateAndUpdateUser(
+    fun validateAndAddNewUser(
         editImage: EditText,
         editUserName: EditText,
         editTextStatus: EditText,
@@ -71,16 +52,9 @@ class DetailsUserViewModel(
                 editReach.text.toString(),
                 editSharemeter.text.toString().toInt()
             )
-            updateUser(user)
+            addNewUserToDb(user)
             return true
         }
     }
 
-    fun navigateToEdit() {
-        _navigateToEdit.value = true
-    }
-
-    fun navigateBack() {
-        _navigateBack.value = true
-    }
 }

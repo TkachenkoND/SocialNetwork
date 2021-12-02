@@ -8,7 +8,9 @@ import com.example.hw_3.R
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
+import com.example.hw_3.repository.UserDataBase
 import com.example.hw_3.view_model.DetailsUserViewModel
+import com.example.hw_3.view_model.DetailsUserViewModelFactory
 import kotlinx.android.synthetic.main.details_activity.*
 
 
@@ -20,7 +22,10 @@ class DetailsUserActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.details_activity)
 
-        vm = ViewModelProvider(this)[DetailsUserViewModel::class.java]
+        val dataSource = UserDataBase.getDatabase(application).userDataBaseDao()
+
+        val detailsUserViewModelFactory = DetailsUserViewModelFactory(dataSource, application)
+        vm = ViewModelProvider(this, detailsUserViewModelFactory)[DetailsUserViewModel::class.java]
 
         vm.setUserId(getUserIdFromUserList())
         initUserDetailsObservers()

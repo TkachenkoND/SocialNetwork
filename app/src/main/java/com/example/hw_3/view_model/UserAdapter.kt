@@ -15,8 +15,7 @@ class UserAdapter(
     private val actionListener: UserActionListener,
 
     ) : RecyclerView.Adapter<UserAdapter.UserViewHolder>(){
-
-    private var userList = ArrayList<User>()
+    private var userList = mutableListOf<User>()
 
     class UserViewHolder(
         val binding: ListItemBinding,
@@ -60,4 +59,5 @@ class UserAdapter(
         userList.addAll(users)
         notifyDataSetChanged()
     }
+
 }

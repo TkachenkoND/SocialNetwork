@@ -7,9 +7,11 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.hw_3.databinding.UserListActivityBinding
-import com.example.hw_3.model.User
 import com.example.hw_3.repository.UserDataBase
 import com.example.hw_3.view_model.*
+import kotlinx.android.synthetic.main.activity_add_new_user.*
+import kotlinx.android.synthetic.main.details_activity.*
+import kotlinx.android.synthetic.main.user_list_activity.*
 
 class UserListActivity : AppCompatActivity() {
 
@@ -30,24 +32,45 @@ class UserListActivity : AppCompatActivity() {
         binding = UserListActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val dataSource = UserDataBase.getDatabase(application).userDataBaseDao()
-        val viewModelFactory = UserViewModelFactory(dataSource, application)
+        val dataSource = getDataSource()
 
-        vm = ViewModelProvider(this, viewModelFactory)[UserViewModel::class.java]
+        val userViewModelFactory = UserViewModelFactory(dataSource, application)
+
+        vm = ViewModelProvider(this, userViewModelFactory)[UserViewModel::class.java]
 
         vm.insertUserToDB()
         vm.loadListUsers()
-        init()
+        initRecyclerView()
+
+        setButtonListener()
+        initNavigationObservers()
     }
 
-    private fun init() {
-        binding.apply {
+    private fun initRecyclerView() {
+
             recyclerView.layoutManager = LinearLayoutManager(this@UserListActivity)
 
             recyclerView.adapter = adapter
             vm.userListLiveData.observe(this@UserListActivity, Observer {
                 adapter.addUsersToAdapter(it)
             })
+
+    }
+
+    private fun initNavigationObservers() {
+        vm.navigateToAdd.observe(this, Observer {
+            if (it){
+                val intent = Intent(this, AddNewUserActivity::class.java)
+                startActivity(intent)
+            }
+        })
+    }
+
+    private fun setButtonListener() {
+        btnGoAddActivity.setOnClickListener {
+            vm.navigateToAdd()
         }
     }
+
+    private fun getDataSource() = UserDataBase.getDatabase(application).userDataBaseDao()
 }

@@ -16,7 +16,6 @@ class UserViewModel(
     application: Application,
 ) : AndroidViewModel(application) {
 
-    val userData: UserData = UserData()
 
     private val _userListLiveData = MutableLiveData<List<User>>()
     val userListLiveData: LiveData<List<User>> = _userListLiveData
@@ -26,7 +25,7 @@ class UserViewModel(
 
     private suspend fun insert() {
         if (database.checkTablesInDataBase() == null) {
-            for (user in userData.userList)
+            for (user in userList)
                 database.insert(user)
         }
     }
@@ -36,19 +35,26 @@ class UserViewModel(
     }
 
     fun insertUserToDB() {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             insert()
         }
     }
 
     fun loadListUsers() {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             load()
         }
     }
 
     fun setUserId(id: Int) {
         _userId.value = id
+    }
+
+    private var _navigateToAdd = MutableLiveData<Boolean>()
+    var navigateToAdd: LiveData<Boolean> = _navigateToAdd
+
+    fun navigateToAdd() {
+        _navigateToAdd.value = true
     }
 
 }
