@@ -51,15 +51,15 @@ class EditUserActivity : AppCompatActivity() {
     private fun onClickButChange() {
         btn_change.setOnClickListener {
             if (vm.validateAndUpdateUser(
-                    editLink,
-                    editName,
-                    editStatus,
-                    editFollowers,
-                    editFollowing,
-                    editSocialScope,
-                    editSharemeter,
-                    editReach,
-                    editPosts,
+                    editLink.text.toString(),
+                    editName.text.toString(),
+                    editStatus.text.toString(),
+                    editFollowers.text.toString(),
+                    editFollowing.text.toString(),
+                    editSocialScope.text.toString(),
+                    editSharemeter.text.toString(),
+                    editReach.text.toString(),
+                    editPosts.text.toString(),
                     strTime,
                 )
             ) {

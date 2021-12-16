@@ -47,15 +47,15 @@ class AddNewUserActivity: AppCompatActivity() {
     private fun setButtonListener() {
         btnAddNewUser.setOnClickListener{
             if (vm.validateAndAddNewUser(
-                    editLink,
-                    editName,
-                    editStatus,
-                    editFollowers,
-                    editFollowing,
-                    editSocialScope,
-                    editSharemeter,
-                    editReach,
-                    editPosts,
+                    editLink.text.toString(),
+                    editName.text.toString(),
+                    editStatus.text.toString(),
+                    editFollowers.text.toString(),
+                    editFollowing.text.toString(),
+                    editSocialScope.text.toString(),
+                    editSharemeter.text.toString(),
+                    editReach.text.toString(),
+                    editPosts.text.toString(),
                     strTime,
                 )
             ) {

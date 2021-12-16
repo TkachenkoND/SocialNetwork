@@ -1,10 +1,8 @@
 package com.example.hw_3.repository
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.Query
-import androidx.room.Update
+import androidx.lifecycle.MutableLiveData
+import androidx.room.*
 import com.example.hw_3.model.User
 
 @Dao
@@ -19,9 +17,12 @@ interface UserDataBaseDao {
     fun getUser(key: Int): LiveData<User?>
 
     @Query("SELECT * FROM users")
-    suspend fun getAllUsers(): List<User>
+    fun getAllUsers(): LiveData<List<User>>
 
     @Query("SELECT * FROM users LIMIT 1")
     suspend fun checkTablesInDataBase(): User?
+
+    @Query("DELETE FROM users WHERE userId = :userId")
+    suspend fun remove(userId: Int)
 
 }

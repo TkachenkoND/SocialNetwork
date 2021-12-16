@@ -47,6 +47,11 @@ class UserAdapter(
             holder.itemView.setOnClickListener {
                 actionListener(user)
             }
+
+            holder.itemView.setOnLongClickListener {
+                actionListener(user)
+                true
+            }
         }
     }
 
@@ -56,6 +61,7 @@ class UserAdapter(
 
     @SuppressLint("NotifyDataSetChanged")
     fun addUsersToAdapter(users: List<User>) {
+        userList.clear()
         userList.addAll(users)
         notifyDataSetChanged()
     }

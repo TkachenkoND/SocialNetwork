@@ -28,6 +28,7 @@ class DetailsUserActivity : AppCompatActivity() {
         vm = ViewModelProvider(this, detailsUserViewModelFactory)[DetailsUserViewModel::class.java]
 
         vm.setUserId(getUserIdFromUserList())
+
         initUserDetailsObservers()
         setButtonListener()
         initNavigationObservers()
@@ -68,6 +69,13 @@ class DetailsUserActivity : AppCompatActivity() {
                 startActivity(intent)
             }
         })
+
+        vm.navigateRemove.observe(this, Observer {
+            if (it) {
+                val intent = Intent(this, UserListActivity::class.java)
+                startActivity(intent)
+            }
+        })
     }
 
     private fun setButtonListener() {
@@ -78,6 +86,10 @@ class DetailsUserActivity : AppCompatActivity() {
 
         btnBack.setOnClickListener {
             vm.navigateBack()
+        }
+
+        btnRemove.setOnClickListener {
+            vm.navigateRemove()
         }
     }
 

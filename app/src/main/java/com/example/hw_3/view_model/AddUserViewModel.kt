@@ -4,6 +4,7 @@ import android.app.Application
 import android.widget.EditText
 import androidx.lifecycle.*
 import com.example.hw_3.model.User
+import com.example.hw_3.model.userList
 import com.example.hw_3.repository.UserDataBaseDao
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -23,34 +24,34 @@ class AddUserViewModel(
     }
 
     fun validateAndAddNewUser(
-        editImage: EditText,
-        editUserName: EditText,
-        editTextStatus: EditText,
-        editFollowers: EditText,
-        editFollowing: EditText,
-        editScope: EditText,
-        editSharemeter: EditText,
-        editReach: EditText,
-        editPosts: EditText,
+        editImage: String,
+        editUserName: String,
+        editTextStatus: String,
+        editFollowers: String,
+        editFollowing: String,
+        editScope: String,
+        editSharemeter: String,
+        editReach: String,
+        editPosts: String,
         strTime: String,
     ): Boolean {
-        if (editUserName.text.isEmpty() || editImage.text.isEmpty() || editTextStatus.text.isEmpty() ||
-            editScope.text.isEmpty() || editFollowers.text.isEmpty() || editFollowing.text.isEmpty() ||
-            editPosts.text.isEmpty() || editReach.text.isEmpty() || editSharemeter.text.isEmpty()
+        if (editUserName.isEmpty() || editImage.isEmpty() || editTextStatus.isEmpty() ||
+            editScope.isEmpty() || editFollowers.isEmpty() || editFollowing.isEmpty()  ||
+            editPosts.isEmpty() || editReach.isEmpty() || editSharemeter.isEmpty()
         ) {
             return false
         } else {
             val user = User(
-                editUserName.text.toString(),
+                editUserName,
                 strTime,
-                editImage.text.toString(),
-                editTextStatus.text.toString(),
-                editScope.text.toString().toInt(),
-                editFollowers.text.toString().toInt(),
-                editFollowing.text.toString().toInt(),
-                editPosts.text.toString(),
-                editReach.text.toString(),
-                editSharemeter.text.toString().toInt()
+                editImage,
+                editTextStatus,
+                editScope.toInt(),
+                editFollowers.toInt(),
+                editFollowing.toInt(),
+                editPosts,
+                editReach,
+                editSharemeter.toInt()
             )
             addNewUserToDb(user)
             return true

@@ -20,7 +20,7 @@ class UserListActivity : AppCompatActivity() {
     lateinit var binding: UserListActivityBinding
 
     private val adapter = UserAdapter { user ->
-        vm.setUserId(user.userId)
+        vm.setUserId(user.userId!!)
 
         val intent = Intent(this@UserListActivity, DetailsUserActivity::class.java)
         intent.putExtra("id",vm.userId.value)
@@ -39,7 +39,7 @@ class UserListActivity : AppCompatActivity() {
         vm = ViewModelProvider(this, userViewModelFactory)[UserViewModel::class.java]
 
         vm.insertUserToDB()
-        vm.loadListUsers()
+        //vm.loadListUsers()
         initRecyclerView()
 
         setButtonListener()

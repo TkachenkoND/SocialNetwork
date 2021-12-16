@@ -18,7 +18,7 @@ class UserViewModel(
 
 
     private val _userListLiveData = MutableLiveData<List<User>>()
-    val userListLiveData: LiveData<List<User>> = _userListLiveData
+    var userListLiveData: LiveData<List<User>> = _userListLiveData
 
     private var _userId = MutableLiveData<Int>()
     val userId: LiveData<Int> = _userId
@@ -30,21 +30,22 @@ class UserViewModel(
         }
     }
 
-    private suspend fun load() {
-        _userListLiveData.postValue(database.getAllUsers())
+    private fun load() {
+        userListLiveData = database.getAllUsers()
     }
 
     fun insertUserToDB() {
+        load()
         viewModelScope.launch {
             insert()
         }
     }
-
+/*
     fun loadListUsers() {
         viewModelScope.launch {
             load()
         }
-    }
+    }*/
 
     fun setUserId(id: Int) {
         _userId.value = id

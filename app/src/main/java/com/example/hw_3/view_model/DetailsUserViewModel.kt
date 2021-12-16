@@ -26,9 +26,17 @@ class DetailsUserViewModel(
     private var _navigateBack = MutableLiveData<Boolean>()
     var navigateBack: LiveData<Boolean> = _navigateBack
 
+    private var _navigateRemove = MutableLiveData<Boolean>()
+    var navigateRemove: LiveData<Boolean> = _navigateRemove
+
+
 
     private suspend fun update(user: User) {
         database.update(user)
+    }
+
+    private suspend fun remove(userId: Int) {
+        database.remove(userId)
     }
 
     fun setUserId(id: Int) {
@@ -41,36 +49,44 @@ class DetailsUserViewModel(
         }
     }
 
+    private fun updateRemove(userId: Int) {
+        viewModelScope.launch(Dispatchers.IO) {
+            remove(userId)
+        }
+    }
+
     fun validateAndUpdateUser(
-        editImage: EditText,
-        editUserName: EditText,
-        editTextStatus: EditText,
-        editFollowers: EditText,
-        editFollowing: EditText,
-        editScope: EditText,
-        editSharemeter: EditText,
-        editReach: EditText,
-        editPosts: EditText,
+        editImage: String,
+        editUserName: String,
+        editTextStatus: String,
+        editFollowers: String,
+        editFollowing: String,
+        editScope: String,
+        editSharemeter: String,
+        editReach: String,
+        editPosts: String,
         strTime: String,
     ): Boolean {
-        if (editUserName.text.isEmpty() || editImage.text.isEmpty() || editTextStatus.text.isEmpty() ||
-            editScope.text.isEmpty() || editFollowers.text.isEmpty() || editFollowing.text.isEmpty() ||
-            editPosts.text.isEmpty() || editReach.text.isEmpty() || editSharemeter.text.isEmpty()
+        if (editUserName.isEmpty() || editImage.isEmpty() || editTextStatus.isEmpty() ||
+            editScope.isEmpty() || editFollowers.isEmpty() || editFollowing.isEmpty() ||
+            editPosts.isEmpty() || editReach.isEmpty() || editSharemeter.isEmpty()
         ) {
             return false
         } else {
             val user = User(
-                editUserName.text.toString(),
+                editUserName,
                 strTime,
-                editImage.text.toString(),
-                editTextStatus.text.toString(),
-                editScope.text.toString().toInt(),
-                editFollowers.text.toString().toInt(),
-                editFollowing.text.toString().toInt(),
-                editPosts.text.toString(),
-                editReach.text.toString(),
-                editSharemeter.text.toString().toInt()
+                editImage,
+                editTextStatus,
+                editScope.toInt(),
+                editFollowers.toInt(),
+                editFollowing.toInt(),
+                editPosts,
+                editReach,
+                editSharemeter.toInt()
             )
+            user.userId = userId.value
+
             updateUser(user)
             return true
         }
@@ -83,4 +99,11 @@ class DetailsUserViewModel(
     fun navigateBack() {
         _navigateBack.value = true
     }
+
+    fun navigateRemove() {
+        _navigateRemove.value = true
+        updateRemove(userId.value!!)
+    }
+
+
 }

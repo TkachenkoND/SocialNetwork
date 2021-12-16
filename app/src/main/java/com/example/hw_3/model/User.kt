@@ -29,6 +29,5 @@ data class User(
     val sharemeter: Int
 ) {
     @PrimaryKey(autoGenerate = true)
-    var userId: Int = 0
-
+    var userId: Int? = null
 }
