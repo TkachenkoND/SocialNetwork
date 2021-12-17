@@ -13,7 +13,6 @@ import com.example.hw_3.view_model.DetailsUserViewModel
 import com.example.hw_3.view_model.DetailsUserViewModelFactory
 import kotlinx.android.synthetic.main.details_activity.*
 
-
 class DetailsUserActivity : AppCompatActivity() {
 
     private lateinit var vm: DetailsUserViewModel
@@ -36,30 +35,31 @@ class DetailsUserActivity : AppCompatActivity() {
 
     private fun initUserDetailsObservers() {
         vm.userDetailsLiveData.observe(this, Observer {
-            title = it.name
-            detailsUserName.text = it.name
-            detailsUserStatus.text = it.status
-            detailsFollowers.text = it.followers.toString()
-            detailsFollowing.text = it.following.toString()
-            detailsScore.text = it.socialScore.toString()
-            detailsSharemeter.text = it.sharemeter.toString()
-            detailsReach.text = it.reach
-            detailsPosts.text = it.posts
+            it?.let { user ->
+                title = user.name
+                detailsUserName.text = user.name
+                detailsUserStatus.text = user.status
+                detailsFollowers.text = user.followers.toString()
+                detailsFollowing.text = user.following.toString()
+                detailsScore.text = user.socialScore.toString()
+                detailsSharemeter.text = user.sharemeter.toString()
+                detailsReach.text = user.reach
+                detailsPosts.text = user.posts
 
-            Glide.with(this)
-                .load(it.photoUri)
-                .error(R.drawable.ic_launcher_foreground)
-                .into(detailsImage)
+                Glide.with(this)
+                    .load(user.photoUri)
+                    .error(R.drawable.ic_launcher_foreground)
+                    .into(detailsImage)
+            }
         })
     }
 
     private fun initNavigationObservers() {
         vm.navigateToEdit.observe(this, Observer {
             if (it) {
-                    val intent = Intent(this, EditUserActivity::class.java)
-                    intent.putExtra("id", vm.userId.value)
-                    startActivity(intent)
-
+                val intent = Intent(this, EditUserActivity::class.java)
+                intent.putExtra("id", vm.userId.value)
+                startActivity(intent)
             }
         })
 
@@ -71,10 +71,8 @@ class DetailsUserActivity : AppCompatActivity() {
         })
 
         vm.navigateRemove.observe(this, Observer {
-            if (it) {
-                val intent = Intent(this, UserListActivity::class.java)
-                startActivity(intent)
-            }
+            if (it)
+                finish()
         })
     }
 

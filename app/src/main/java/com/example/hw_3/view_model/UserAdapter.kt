@@ -47,11 +47,6 @@ class UserAdapter(
             holder.itemView.setOnClickListener {
                 actionListener(user)
             }
-
-            holder.itemView.setOnLongClickListener {
-                actionListener(user)
-                true
-            }
         }
     }
 
