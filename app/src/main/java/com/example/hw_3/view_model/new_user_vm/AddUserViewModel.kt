@@ -1,4 +1,4 @@
-package com.example.hw_3.view_model
+package com.example.hw_3.view_model.new_user_vm
 
 import android.app.Application
 import androidx.lifecycle.*

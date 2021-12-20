@@ -7,8 +7,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.hw_3.R
 import com.example.hw_3.repository.UserDataBase
-import com.example.hw_3.view_model.DetailsUserViewModel
-import com.example.hw_3.view_model.DetailsUserViewModelFactory
+import com.example.hw_3.view_model.details_vm.DetailsUserViewModel
+import com.example.hw_3.view_model.details_vm.DetailsUserViewModelFactory
 import kotlinx.android.synthetic.main.edit_profile_activity.*
 
 class EditUserActivity : AppCompatActivity() {

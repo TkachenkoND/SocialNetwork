@@ -9,6 +9,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.hw_3.databinding.UserListActivityBinding
 import com.example.hw_3.repository.UserDataBase
 import com.example.hw_3.view_model.*
+import com.example.hw_3.view_model.user_list_vm.UserViewModel
+import com.example.hw_3.view_model.user_list_vm.UserViewModelFactory
 import kotlinx.android.synthetic.main.activity_add_new_user.*
 import kotlinx.android.synthetic.main.details_activity.*
 import kotlinx.android.synthetic.main.user_list_activity.*

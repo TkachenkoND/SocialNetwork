@@ -9,8 +9,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.example.hw_3.repository.UserDataBase
-import com.example.hw_3.view_model.DetailsUserViewModel
-import com.example.hw_3.view_model.DetailsUserViewModelFactory
+import com.example.hw_3.view_model.details_vm.DetailsUserViewModel
+import com.example.hw_3.view_model.details_vm.DetailsUserViewModelFactory
 import kotlinx.android.synthetic.main.details_activity.*
 
 class DetailsUserActivity : AppCompatActivity() {

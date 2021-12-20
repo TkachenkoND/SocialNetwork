@@ -6,8 +6,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.example.hw_3.databinding.ActivityAddNewUserBinding
 import com.example.hw_3.repository.UserDataBase
-import com.example.hw_3.view_model.AddNewUserViewModelFactory
-import com.example.hw_3.view_model.AddUserViewModel
+import com.example.hw_3.view_model.new_user_vm.AddNewUserViewModelFactory
+import com.example.hw_3.view_model.new_user_vm.AddUserViewModel
 import kotlinx.android.synthetic.main.activity_add_new_user.*
 import kotlinx.android.synthetic.main.activity_add_new_user.editFollowers
 import kotlinx.android.synthetic.main.activity_add_new_user.editFollowing

@@ -1,4 +1,4 @@
-package com.example.hw_3.view_model
+package com.example.hw_3.view_model.user_list_vm
 
 
 import android.app.Application
