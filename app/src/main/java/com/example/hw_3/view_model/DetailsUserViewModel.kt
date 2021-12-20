@@ -1,10 +1,8 @@
 package com.example.hw_3.view_model
 
 import android.app.Application
-import android.widget.EditText
 import androidx.lifecycle.*
 import com.example.hw_3.model.User
-import com.example.hw_3.repository.UserDataBase
 import com.example.hw_3.repository.UserDataBaseDao
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -28,7 +26,6 @@ class DetailsUserViewModel(
 
     private var _navigateRemove = MutableLiveData<Boolean>()
     var navigateRemove: LiveData<Boolean> = _navigateRemove
-
 
 
     private suspend fun update(user: User) {
@@ -104,6 +101,4 @@ class DetailsUserViewModel(
         _navigateRemove.value = true
         updateRemove(userId.value!!)
     }
-
-
 }

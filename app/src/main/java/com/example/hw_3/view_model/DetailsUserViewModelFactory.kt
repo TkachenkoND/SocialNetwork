@@ -17,5 +17,4 @@ class DetailsUserViewModelFactory (
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }
-
 }

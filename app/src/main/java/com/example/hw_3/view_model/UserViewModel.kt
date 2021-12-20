@@ -8,14 +8,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.hw_3.model.*
 import com.example.hw_3.repository.UserDataBaseDao
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class UserViewModel(
     val database: UserDataBaseDao,
     application: Application,
 ) : AndroidViewModel(application) {
-
 
     private val _userListLiveData = MutableLiveData<List<User>>()
     var userListLiveData: LiveData<List<User>> = _userListLiveData
@@ -40,12 +38,6 @@ class UserViewModel(
             insert()
         }
     }
-/*
-    fun loadListUsers() {
-        viewModelScope.launch {
-            load()
-        }
-    }*/
 
     fun setUserId(id: Int) {
         _userId.value = id
@@ -57,5 +49,4 @@ class UserViewModel(
     fun navigateToAdd() {
         _navigateToAdd.value = true
     }
-
 }

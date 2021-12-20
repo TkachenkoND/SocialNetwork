@@ -19,12 +19,8 @@ class UserListActivity : AppCompatActivity() {
 
     lateinit var binding: UserListActivityBinding
 
-    private val adapter = UserAdapter { user ->
+    private val adapter = UserListAdapter { user ->
         vm.setUserId(user.userId!!)
-
-        val intent = Intent(this@UserListActivity, DetailsUserActivity::class.java)
-        intent.putExtra("id",vm.userId.value)
-        startActivity(intent)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,30 +35,34 @@ class UserListActivity : AppCompatActivity() {
         vm = ViewModelProvider(this, userViewModelFactory)[UserViewModel::class.java]
 
         vm.insertUserToDB()
-        //vm.loadListUsers()
         initRecyclerView()
-
         setButtonListener()
         initNavigationObservers()
+        initObserversUserId()
     }
 
     private fun initRecyclerView() {
-
-            recyclerView.layoutManager = LinearLayoutManager(this@UserListActivity)
-
-            recyclerView.adapter = adapter
-            vm.userListLiveData.observe(this@UserListActivity, Observer {
-                adapter.addUsersToAdapter(it)
-            })
-
+        recyclerView.layoutManager = LinearLayoutManager(this@UserListActivity)
+        vm.userListLiveData.observe(this@UserListActivity, Observer {
+            adapter.submitList(it)
+        })
+        recyclerView.adapter = adapter
     }
 
     private fun initNavigationObservers() {
         vm.navigateToAdd.observe(this, Observer {
-            if (it){
+            if (it) {
                 val intent = Intent(this, AddNewUserActivity::class.java)
                 startActivity(intent)
             }
+        })
+    }
+
+    private fun initObserversUserId(){
+        vm.userId.observe(this, Observer {
+            val intent = Intent(this@UserListActivity, DetailsUserActivity::class.java)
+            intent.putExtra("id", vm.userId.value)
+            startActivity(intent)
         })
     }
 

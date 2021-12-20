@@ -1,10 +1,8 @@
 package com.example.hw_3.view_model
 
 import android.app.Application
-import android.widget.EditText
 import androidx.lifecycle.*
 import com.example.hw_3.model.User
-import com.example.hw_3.model.userList
 import com.example.hw_3.repository.UserDataBaseDao
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -57,5 +55,4 @@ class AddUserViewModel(
             return true
         }
     }
-
 }

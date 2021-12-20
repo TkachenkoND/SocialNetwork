@@ -7,8 +7,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.hw_3.R
 import com.example.hw_3.repository.UserDataBase
-import com.example.hw_3.view_model.AddNewUserViewModelFactory
-import com.example.hw_3.view_model.AddUserViewModel
 import com.example.hw_3.view_model.DetailsUserViewModel
 import com.example.hw_3.view_model.DetailsUserViewModelFactory
 import kotlinx.android.synthetic.main.edit_profile_activity.*

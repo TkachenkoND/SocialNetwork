@@ -5,7 +5,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -14,17 +13,16 @@
             android:id="@+id/my_toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
             android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
             android:elevation="5dp">
-
 
             <androidx.appcompat.widget.AppCompatImageButton
                 android:id="@+id/btnBack"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="?android:attr/selectableItemBackground"
-                app:srcCompat="@drawable/ic_arrow_back"/>
+                app:srcCompat="@drawable/ic_arrow_back" />
 
             <androidx.appcompat.widget.AppCompatImageButton
                 android:id="@+id/btnEdit"
@@ -38,10 +36,10 @@
                 android:id="@+id/btnRemove"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="?android:attr/selectableItemBackground"
                 android:layout_gravity="end"
                 android:layout_marginEnd="10dp"
-                app:srcCompat="@drawable/ic_baseline_delete"/>
+                android:background="?android:attr/selectableItemBackground"
+                app:srcCompat="@drawable/ic_baseline_delete" />
 
         </androidx.appcompat.widget.Toolbar>
 
@@ -70,8 +68,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_margin="5dp">
+            android:layout_margin="5dp"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/detailsUserName"
@@ -157,7 +155,6 @@
                             android:textSize="13sp" />
                     </LinearLayout>
 
-
                 </LinearLayout>
 
                 <LinearLayout
@@ -215,7 +212,6 @@
                             android:textSize="13sp" />
                     </LinearLayout>
 
-
                 </LinearLayout>
 
                 <LinearLayout
@@ -271,12 +267,12 @@
                             android:textSize="13sp" />
                     </LinearLayout>
 
-
                 </LinearLayout>
 
             </LinearLayout>
 
         </LinearLayout>
+
     </ScrollView>
 
 </LinearLayout>
