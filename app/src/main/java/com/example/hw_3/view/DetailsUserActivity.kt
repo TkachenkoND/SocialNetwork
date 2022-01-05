@@ -8,6 +8,8 @@ import com.example.hw_3.R
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
+import com.example.hw_3.databinding.DetailsActivityBinding
+import com.example.hw_3.databinding.UserListActivityBinding
 import com.example.hw_3.repository.UserDataBase
 import com.example.hw_3.view_model.details_vm.DetailsUserViewModel
 import com.example.hw_3.view_model.details_vm.DetailsUserViewModelFactory
@@ -17,9 +19,13 @@ class DetailsUserActivity : AppCompatActivity() {
 
     private lateinit var vm: DetailsUserViewModel
 
+    lateinit var binding: DetailsActivityBinding
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.details_activity)
+        binding = DetailsActivityBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         val dataSource = UserDataBase.getDatabase(application).userDataBaseDao()
 

@@ -5,7 +5,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.example.hw_3.R
+import com.example.hw_3.databinding.EditProfileActivityBinding
 import com.example.hw_3.repository.UserDataBase
 import com.example.hw_3.view_model.details_vm.DetailsUserViewModel
 import com.example.hw_3.view_model.details_vm.DetailsUserViewModelFactory
@@ -16,9 +16,12 @@ class EditUserActivity : AppCompatActivity() {
     private lateinit var vm: DetailsUserViewModel
     private var strTime: String = ""
 
+    lateinit var binding: EditProfileActivityBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.edit_profile_activity)
+        binding = EditProfileActivityBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         val dataSource = UserDataBase.getDatabase(application).userDataBaseDao()
 
